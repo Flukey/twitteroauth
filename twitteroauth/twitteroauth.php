@@ -35,7 +35,8 @@ class TwitterOAuth {
   public $useragent = 'TwitterOAuth v0.2.0-beta2';
   /* Immediately retry the API call if the response was not successful. */
   //public $retry = TRUE;
-
+  
+  public $proxy = array("url"=>"proxy.ill.fr:8888", "port"=>8888);
 
 
 
@@ -206,6 +207,8 @@ class TwitterOAuth {
     curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
     curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
     curl_setopt($ci, CURLOPT_HEADER, FALSE);
+    curl_setopt($ci, CURLOPT_PROXY, $this->proxy['url']);
+    curl_setopt($ci, CURLOPT_PROXYPORT, $this->proxy['port']);
 
     switch ($method) {
       case 'POST':
